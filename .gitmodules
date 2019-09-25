@@ -1,0 +1,3 @@
+[submodule "pax-utils"]
+	path = pax-utils
+	url = https://github.com/gentoo/pax-utils.git
