@@ -8,6 +8,10 @@ WRKDIR := $(basedir)/build
 STAGEDIR := $(basedir)/staging
 DISTDIR := $(basedir)/dist
 
+CONFIGURE_ARGS := \
+	--enable-multilib \
+	--with-cmodel=medany
+
 ifneq ($(MAKECMDGOALS),install)
 hash := $(shell cd $(SRCDIR) && test -d riscv-gcc && git rev-parse HEAD)
 ifeq ($(hash),)
@@ -27,7 +31,7 @@ dist: $(stamp_hash)
 
 $(WRKDIR)/Makefile: $(SRCDIR)/configure
 	mkdir -p $(WRKDIR)
-	cd $(WRKDIR) && $(realpath $<) --prefix=$(STAGEDIR)
+	cd $(WRKDIR) && $(realpath $<) --prefix=$(STAGEDIR) $(CONFIGURE_ARGS)
 
 $(stamp_newlib): $(WRKDIR)/Makefile
 	$(MAKE) -C $(WRKDIR) newlib
